@@ -29,8 +29,11 @@ namespace MCPFabLibrary
 		FString Body;
 	};
 
-	// The plugin's frontend host for its Prod environment. The other
-	// environments are Epic-internal, and a custom URL is unset by default.
+	// The Fab API host for the plugin's Prod environment. The plugin itself
+	// builds its library URL on https://fab.com (UFabSettings::GetUrlFromEnvironment),
+	// but fab.com's CDN answers that path 404 with an empty body; the API is
+	// served on www.fab.com. The other environments are Epic-internal, and a
+	// custom URL is unset by default.
 	inline bool ReadFabHost(FString& OutHost, FString& OutError)
 	{
 		UClass* SettingsClass = FindObject<UClass>(nullptr, TEXT("/Script/Fab.FabSettings"));
@@ -48,7 +51,7 @@ namespace MCPFabLibrary
 			OutError = FString::Printf(TEXT("fab(library) reads the Prod Fab library only; the Fab plugin is set to the %s environment."), *Environment);
 			return false;
 		}
-		OutHost = TEXT("https://fab.com");
+		OutHost = TEXT("https://www.fab.com");
 		return true;
 	}
 
