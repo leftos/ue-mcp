@@ -100,6 +100,24 @@ export const handlerSpecs: HandlerSpecs = {
       }
     ]
   },
+  "fab_library": {
+    "category": "fab",
+    "params": [
+      {
+        "name": "count",
+        "type": "integer",
+        "required": false,
+        "description": "Listings per page (default 100)"
+      },
+      {
+        "name": "cursor",
+        "type": "string",
+        "required": false,
+        "description": "Page cursor, the nextCursor a previous call returned"
+      }
+    ],
+    "contractExempt": "Sends a library request to fab.com with the editor's Fab session whatever the values"
+  },
   "fab_list_cached": {
     "category": "fab",
     "params": []
@@ -139,6 +157,7 @@ export const paramsClauses: Readonly<Record<string, string>> = {
   fab_cache_info: "Params: none",
   fab_clear_cache: "Params: none",
   fab_import_file: "Params: source (or sourceFile), destination (or destPath)",
+  fab_library: "Params: count?, cursor?",
   fab_list_cached: "Params: none",
   fab_login: "Params: none",
   fab_logout: "Params: none",
@@ -153,6 +172,8 @@ export const schema: Record<string, z.ZodType> = {
   assetNamespace: z.string().optional().describe("Fab asset namespace, passed through to the workflow"),
   assetType: z.string().optional().describe("Fab asset type: unreal-engine (a pack), gltf, glb, fbx, metahuman, or a type a plugin registered"),
   batchSize: z.number().int().optional().describe("Library items to pull per sync request (default the plugin's own)"),
+  count: z.number().int().optional().describe("Listings per page (default 100)"),
+  cursor: z.string().optional().describe("Page cursor, the nextCursor a previous call returned"),
   destination: z.string().optional().describe("Destination content path, e.g. /Game/Fab/Imported"),
   destPath: z.string().optional().describe("Alias for destination"),
   distributionPointBaseUrls: z.array(z.string()).optional().describe("Chunk base URLs a pack downloads from; required for unreal-engine"),

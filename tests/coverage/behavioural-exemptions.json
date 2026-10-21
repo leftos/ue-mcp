@@ -10,6 +10,7 @@
     "cook_content": "Starts a content cook for a target platform, writing outside the test sandbox, and no bridge action reads cooked output back.",
     "fab_add_to_project": "Needs a signed download URL that only fab.com issues to a signed-in Fab account for a listing it owns, and the import it starts runs asynchronously over the network with no result the bridge reads back.",
     "fab_clear_cache": "Deletes the machine-wide Fab download cache outside the test sandbox, destroying downloads the user may need in other projects.",
+    "fab_library": "Needs a signed-in Fab account and requests that account's library from fab.com, a third-party service no test may call.",
     "fab_login": "Opens the interactive EOS account portal sign-in, which needs a real Fab account and a person to finish it.",
     "fab_logout": "Clears the machine Fab credentials, user-level state outside the test project, and those stored credentials are not readable, so a test could not observe what it cleared.",
     "fab_sync_library": "Needs a signed-in Fab account and runs asynchronously against the network, and no action reports its result back.",

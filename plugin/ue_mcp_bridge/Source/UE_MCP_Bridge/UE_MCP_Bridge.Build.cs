@@ -178,5 +178,9 @@ public class UE_MCP_Bridge : ModuleRules
 		{
 			PublicDefinitions.Add("WITH_FAB_PLUGIN=0");
 		}
+
+		// fab(library) requests the signed-in account's library from fab.com
+		// itself (Handlers/Fab/FabHandlers_Library.cpp).
+		PrivateDependencyModuleNames.Add("HTTP");
 	}
 }

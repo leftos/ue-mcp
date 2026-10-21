@@ -10,9 +10,9 @@
 // signed download URL all happen in fab.com's pages) sitting on top of a native
 // download+import layer. This category drives the parts of that native layer
 // that don't need the web frontend: login lifecycle and sign-in state, syncing
-// the user's owned library into the Content Browser, inspecting/clearing the
-// download cache, importing local source files, and handing a signed download
-// URL to the plugin's own add-to-project workflows.
+// and listing the user's owned library, inspecting/clearing the download cache,
+// importing local source files, and handing a signed download URL to the
+// plugin's own add-to-project workflows.
 //
 // The signed URL itself is out of the plugin's reach to produce: the web page
 // generates it and passes it to UFabBrowserApi::AddToProject. A URL obtained
@@ -34,4 +34,6 @@ private:
 	static TSharedPtr<FJsonValue> ImportFile(const TSharedPtr<FJsonObject>& Params);
 	static TSharedPtr<FJsonValue> AuthState(const TSharedPtr<FJsonObject>& Params);
 	static TSharedPtr<FJsonValue> AddToProject(const TSharedPtr<FJsonObject>& Params);
+	// Defined in FabHandlers_Library.cpp, the one fab action that calls fab.com itself.
+	static TSharedPtr<FJsonValue> Library(const TSharedPtr<FJsonObject>& Params);
 };

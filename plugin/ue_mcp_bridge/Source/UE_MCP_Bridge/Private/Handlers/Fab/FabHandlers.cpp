@@ -587,6 +587,10 @@ void FFabHandlers::RegisterHandlers(FMCPHandlerRegistry& Registry)
 	});
 	Registry.RegisterHandler(TEXT("fab_auth_state"), &AuthState, {},
 		MCPSpec::ContractExempt(TEXT("Takes no parameters, and the plugin's token read it makes logs an EOS error whenever no account is signed in")));
+	Registry.RegisterHandler(TEXT("fab_library"), &Library, {
+		MCPParam::Optional(TEXT("count"), EType::Integer, TEXT("Listings per page (default 100)")),
+		MCPParam::Optional(TEXT("cursor"), EType::String, TEXT("Page cursor, the nextCursor a previous call returned")),
+	}, MCPSpec::ContractExempt(TEXT("Sends a library request to fab.com with the editor's Fab session whatever the values")));
 	Registry.RegisterHandler(TEXT("fab_add_to_project"), &AddToProject, {
 		MCPParam::Required(TEXT("downloadUrl"), EType::String, TEXT("Signed download URL for the listing (a pack's manifest URL), as fab.com issues it")),
 		MCPParam::Required(TEXT("assetId"), EType::String, TEXT("Fab asset id of the listing")),

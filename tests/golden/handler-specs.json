@@ -1,5 +1,5 @@
 {
-  "handlerCount": 1145,
+  "handlerCount": 1146,
   "handlers": {
     "add_ability_system_component": {
       "category": "gas",
@@ -14724,6 +14724,24 @@
           ]
         }
       ]
+    },
+    "fab_library": {
+      "category": "fab",
+      "params": [
+        {
+          "name": "count",
+          "type": "integer",
+          "required": false,
+          "description": "Listings per page (default 100)"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "description": "Page cursor, the nextCursor a previous call returned"
+        }
+      ],
+      "contractExempt": "Sends a library request to fab.com with the editor's Fab session whatever the values"
     },
     "fab_list_cached": {
       "category": "fab",
