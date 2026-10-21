@@ -1,5 +1,5 @@
 {
-  "handlerCount": 1143,
+  "handlerCount": 1145,
   "handlers": {
     "add_ability_system_component": {
       "category": "gas",
@@ -14633,6 +14633,65 @@
           "description": "Plan only, no asset is created or saved (default true)"
         }
       ]
+    },
+    "fab_add_to_project": {
+      "category": "fab",
+      "params": [
+        {
+          "name": "downloadUrl",
+          "type": "string",
+          "required": true,
+          "description": "Signed download URL for the listing (a pack's manifest URL), as fab.com issues it"
+        },
+        {
+          "name": "assetId",
+          "type": "string",
+          "required": true,
+          "description": "Fab asset id of the listing"
+        },
+        {
+          "name": "assetName",
+          "type": "string",
+          "required": true,
+          "description": "Listing name, used for the import folder and notifications"
+        },
+        {
+          "name": "assetType",
+          "type": "string",
+          "required": true,
+          "description": "Fab asset type: unreal-engine (a pack), gltf, glb, fbx, metahuman, or a type a plugin registered"
+        },
+        {
+          "name": "isQuixel",
+          "type": "boolean",
+          "required": false,
+          "description": "Megascans content; picks the Quixel workflow for any type but unreal-engine (default false)"
+        },
+        {
+          "name": "distributionPointBaseUrls",
+          "type": "array",
+          "required": false,
+          "description": "Chunk base URLs a pack downloads from; required for unreal-engine",
+          "items": "string"
+        },
+        {
+          "name": "listingType",
+          "type": "string",
+          "required": false,
+          "description": "Fab listing type, passed through to the workflow"
+        },
+        {
+          "name": "assetNamespace",
+          "type": "string",
+          "required": false,
+          "description": "Fab asset namespace, passed through to the workflow"
+        }
+      ]
+    },
+    "fab_auth_state": {
+      "category": "fab",
+      "params": [],
+      "contractExempt": "Takes no parameters, and the plugin's token read it makes logs an EOS error whenever no account is signed in"
     },
     "fab_cache_info": {
       "category": "fab",

@@ -129,8 +129,8 @@ inline void MCPSetUpdated(TSharedPtr<FJsonObject> Result)
  *  one that says nothing has not, but from the outside the two look identical.
  *
  *  The cases are real and narrow. epic(call_tool) dispatches a wrapped engine
- *  tool whose writes it never sees, and the Fab module publishes no
- *  authentication or library state this build can read back. Both are asking
+ *  tool whose writes it never sees, and fab(sync_library) queues a sync whose
+ *  results land in the editor's data storage after it returns. Both are asking
  *  about somebody else's code, so a fabricated `unchanged: false` would be a
  *  claim rather than a reading, which is worse than an honest absence.
  *

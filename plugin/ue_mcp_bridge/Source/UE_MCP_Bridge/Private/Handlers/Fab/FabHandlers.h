@@ -6,16 +6,18 @@
 
 // Fab asset importer. Fab is Epic's unified content marketplace; the engine
 // ships an editor plugin (/Engine/Plugins/Fab) whose window is a web frontend
-// (catalog browse, library, purchase, signed-URL resolution all live server
-// side) sitting on top of a thin native download+import layer. This category
-// drives the parts of that native layer that don't need the web frontend:
-// login lifecycle, syncing the user's owned library into the Content Browser,
-// inspecting/clearing the download cache, and importing owned/local source
-// files into the project via the Fab import pipeline.
+// (catalog browse, purchase, adding a listing to the library and producing a
+// signed download URL all happen in fab.com's pages) sitting on top of a native
+// download+import layer. This category drives the parts of that native layer
+// that don't need the web frontend: login lifecycle and sign-in state, syncing
+// the user's owned library into the Content Browser, inspecting/clearing the
+// download cache, importing local source files, and handing a signed download
+// URL to the plugin's own add-to-project workflows.
 //
-// Store catalog browsing and signed-URL resolution are deliberately out of
-// scope for this v1: they require the authenticated Fab backend (no official
-// consumer REST API exists), so they stay in the web window.
+// The signed URL itself is out of the plugin's reach to produce: the web page
+// generates it and passes it to UFabBrowserApi::AddToProject. A URL obtained
+// elsewhere is usable here by reflection into that same function. Store catalog
+// browsing and buying stay in the web window.
 class FFabHandlers
 {
 public:
@@ -30,4 +32,6 @@ private:
 	static TSharedPtr<FJsonValue> CacheInfo(const TSharedPtr<FJsonObject>& Params);
 	static TSharedPtr<FJsonValue> ClearCache(const TSharedPtr<FJsonObject>& Params);
 	static TSharedPtr<FJsonValue> ImportFile(const TSharedPtr<FJsonObject>& Params);
+	static TSharedPtr<FJsonValue> AuthState(const TSharedPtr<FJsonObject>& Params);
+	static TSharedPtr<FJsonValue> AddToProject(const TSharedPtr<FJsonObject>& Params);
 };

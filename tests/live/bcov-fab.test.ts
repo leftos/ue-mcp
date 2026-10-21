@@ -1,5 +1,5 @@
 /**
- * The Fab actions that work without an account: the local cache readers,
+ * The Fab actions that work without an account: the sign-in reading, the local cache readers,
  * cross-checked against each other, and importing a local file into a content
  * folder. Login, logout, library sync and cache clearing are not run. Refs #1223.
  */
@@ -83,6 +83,25 @@ describe("fab local state", () => {
     expect(listed.cacheLocation).toBe(info.cacheLocation);
     expect(listed.count).toBe(info.count);
     expect((listed.cachedAssets as unknown[]).length).toBe(Number(listed.count));
+  }, 60_000);
+
+  it("fab_auth_state reads the sign-in without returning the session token", async () => {
+    const state = await call("fab_auth_state", {});
+    expect(typeof state.signedIn, JSON.stringify(state)).toBe("boolean");
+    if (state.signedIn === true) {
+      expect(typeof state.accountId).toBe("string");
+      expect(String(state.accountId).length).toBeGreaterThan(0);
+    } else {
+      expect("accountId" in state, JSON.stringify(state)).toBe(false);
+    }
+    // An EOS session token is an "eg1~" prefixed JWT; no field may carry one,
+    // nor any field named for it.
+    const looksLikeToken = (value: string): boolean =>
+      value.includes("eg1~") || /^[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]+$/.test(value);
+    for (const [key, value] of Object.entries(state)) {
+      expect(/token/i.test(key), `field ${key}`).toBe(false);
+      if (typeof value === "string") expect(looksLikeToken(value), `field ${key}`).toBe(false);
+    }
   }, 60_000);
 
   it("fab_import_file imports a local file into the destination folder", async () => {
